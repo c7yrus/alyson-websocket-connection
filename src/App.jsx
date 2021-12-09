@@ -2,7 +2,7 @@ import EventBus from '@vertx/eventbus-bridge-client.js'
 import { useKeycloak } from '@react-keycloak/web'
 import axios from 'axios'
 
-const VERTX_URL = 'https://internmatch-staging2.gada.io/frontend'
+const VERTX_URL = 'https://internmatch-interns.gada.io/frontend'
 const eventBus = new EventBus(VERTX_URL)
 
 const App = () => {
@@ -10,19 +10,22 @@ const App = () => {
 
   const { login, sessionId, token } = keycloak
 
-  if (!(token && sessionId)) login({ redirectUri: `${window.location.href}` })
+  if (!(token && sessionId)) {
+    console.log('hello')
+    login({ redirectUri: `${window.location.href}` })
+  }
 
   if (token && sessionId) {
     try {
       eventBus.registerHandler(sessionId, (err, { body }) => {
-        console.log('body', body)
+        console.log('body---->', body)
       })
     } catch (error) {
       console.error(error)
     }
 
     axios.post(
-      `https://internmatch-staging2.gada.io/api/events/init?url=https://internmatch-staging2.gada.io/`,
+      `https://internmatch-interns.gada.io/api/events/init?url=https://internmatch-interns.gada.io/`,
       {
         method: 'POST',
         responseType: 'json',
