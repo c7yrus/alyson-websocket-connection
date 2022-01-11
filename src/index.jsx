@@ -4,12 +4,16 @@ import App from './App'
 import getApiConfig from './get-api-config'
 import { ReactKeycloakProvider } from '@react-keycloak/web'
 
+const Loading = () => {
+  return <div>{`Loading Component`}</div>
+}
+
 const initialiseApp = async () => {
   try {
     const { keyCloak } = await getApiConfig()
     ReactDOM.render(
       <React.StrictMode>
-        <ReactKeycloakProvider authClient={keyCloak} LoadingComponent={<div />}>
+        <ReactKeycloakProvider authClient={keyCloak} LoadingComponent={<Loading />}>
           <App />
         </ReactKeycloakProvider>
       </React.StrictMode>,

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Keycloak from 'keycloak-js'
 
-const INIT_URL = `https://internmatch-staging2.gada.io/api/events/init?url=https://internmatch-staging2.gada.io/`
+const INIT_URL = `https://internmatch-dev.gada.io/api/events/init?url=https://internmatch-dev.gada.io/`
 
 const getApiConfig = async () => {
   try {
@@ -13,6 +13,7 @@ const getApiConfig = async () => {
       url: INIT_URL,
     })
     const apiConfig = response.data
+    console.log('%c API Config --->', 'color: teal; font-size:20px', apiConfig)
     const keyCloak = new Keycloak({
       realm: apiConfig.realm,
       url: apiConfig.ENV_KEYCLOAK_REDIRECTURI,
